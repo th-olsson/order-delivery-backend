@@ -7,6 +7,9 @@ https://keystonejs.com/docs/guides/document-fields#how-to-use-document-fields
 
 Relationships
 https://keystonejs.com/docs/guides/relationships#understanding-relationships
+
+Auth & access control
+https://keystonejs.com/docs/guides/auth-and-access-control
 */
 
 import { list } from "@keystone-6/core";
@@ -17,6 +20,7 @@ import {
   password,
   timestamp,
   select,
+  decimal,
 } from "@keystone-6/core/fields";
 import { document } from "@keystone-6/fields-document";
 import { Lists } from ".keystone/types";
@@ -35,7 +39,7 @@ export const lists: Lists = {
     },
     ui: {
       listView: {
-        initialColumns: ["name", "posts"],
+        initialColumns: ["name", "email", "posts"],
       },
     },
   }),
@@ -90,6 +94,7 @@ export const lists: Lists = {
       }),
     },
   }),
+
   Tag: list({
     ui: {
       isHidden: true,
@@ -97,6 +102,28 @@ export const lists: Lists = {
     fields: {
       name: text(),
       posts: relationship({ ref: "Post.tags", many: true }),
+    },
+  }),
+
+  Product: list({
+    fields: {
+      title: text(),
+      price: decimal(),
+      descripton: text(),
+      //TODO: add image
+      category: relationship({ ref: "Category.products" }),
+    },
+  }),
+
+  Category: list({
+    fields: {
+      name: text(),
+      products: relationship({ ref: "Product.category", many: true }),
+    },
+    ui: {
+      listView: {
+        initialColumns: ["name"],
+      },
     },
   }),
 };

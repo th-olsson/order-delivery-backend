@@ -21,6 +21,7 @@ import {
   timestamp,
   select,
   decimal,
+  checkbox,
 } from "@keystone-6/core/fields";
 import { document } from "@keystone-6/fields-document";
 import { Lists } from ".keystone/types";
@@ -123,6 +124,28 @@ export const lists: Lists = {
     ui: {
       listView: {
         initialColumns: ["name"],
+      },
+    },
+  }),
+
+  UnavailableDate: list({
+    fields: {
+      date: timestamp(),
+      message: text(),
+    },
+  }),
+
+  OrderStop: list({
+    fields: {
+      messageToCustomer: text(),
+      stopUntil: timestamp(),
+      updatedAt: timestamp({
+        db: { updatedAt: true },
+      }),
+    },
+    ui: {
+      listView: {
+        initialColumns: ["messageToCustomer", "stopUntil", "updatedAt"],
       },
     },
   }),

@@ -110,7 +110,7 @@ export const lists: Lists = {
     fields: {
       title: text(),
       price: decimal(),
-      descripton: text(),
+      description: text(),
       //TODO: add image
       category: relationship({ ref: "Category.products" }),
     },

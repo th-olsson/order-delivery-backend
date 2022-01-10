@@ -108,7 +108,7 @@ export const lists: Lists = {
 
   Product: list({
     fields: {
-      title: text(),
+      name: text(),
       price: decimal(),
       description: text(),
       // TODO: add image

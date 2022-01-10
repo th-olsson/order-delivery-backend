@@ -111,8 +111,9 @@ export const lists: Lists = {
       title: text(),
       price: decimal(),
       description: text(),
-      //TODO: add image
+      // TODO: add image
       category: relationship({ ref: "Category.products" }),
+      // featured: checkbox(),
     },
   }),
 
@@ -120,6 +121,8 @@ export const lists: Lists = {
     fields: {
       name: text(),
       products: relationship({ ref: "Product.category", many: true }),
+      // TODO: add image
+      // onMenu: checkbox(),
     },
     ui: {
       listView: {

@@ -11,6 +11,11 @@ export default withAuth(
       provider: "postgresql",
       url: process.env.DATABASE_URL || "",
     },
+    server: {
+      cors: {
+        origin: "*", // Allowed all origins for now, change before production
+      },
+    },
     ui: {
       isAccessAllowed: (context) => !!context.session?.data,
     },

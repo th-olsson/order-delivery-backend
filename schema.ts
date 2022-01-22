@@ -20,8 +20,9 @@ import {
   password,
   timestamp,
   select,
-  checkbox,
+  // checkbox,
   integer,
+  image,
 } from "@keystone-6/core/fields";
 import { document } from "@keystone-6/fields-document";
 import { Lists } from ".keystone/types";
@@ -111,7 +112,7 @@ export const lists: Lists = {
       name: text({ validation: { isRequired: true } }),
       price: integer({ validation: { isRequired: true } }),
       description: text(),
-      // TODO: add image
+      image: image(),
       category: relationship({ ref: "Category.products" }),
       // featured: checkbox(),
     },
@@ -121,7 +122,7 @@ export const lists: Lists = {
     fields: {
       name: text(),
       products: relationship({ ref: "Product.category", many: true }),
-      // TODO: add image
+      image: image(),
       // onMenu: checkbox(),
     },
     ui: {

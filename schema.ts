@@ -120,7 +120,7 @@ export const lists: Lists = {
 
   Category: list({
     fields: {
-      name: text(),
+      name: text({ validation: { isRequired: true } }),
       products: relationship({ ref: "Product.category", many: true }),
       image: image(),
       // onMenu: checkbox(),

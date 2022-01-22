@@ -20,8 +20,8 @@ import {
   password,
   timestamp,
   select,
-  decimal,
   checkbox,
+  integer,
 } from "@keystone-6/core/fields";
 import { document } from "@keystone-6/fields-document";
 import { Lists } from ".keystone/types";
@@ -108,8 +108,8 @@ export const lists: Lists = {
 
   Product: list({
     fields: {
-      name: text(),
-      price: decimal(),
+      name: text({ validation: { isRequired: true } }),
+      price: integer({ validation: { isRequired: true } }),
       description: text(),
       // TODO: add image
       category: relationship({ ref: "Category.products" }),

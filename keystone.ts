@@ -19,6 +19,13 @@ export default withAuth(
     ui: {
       isAccessAllowed: (context) => !!context.session?.data,
     },
+    images: {
+      upload: "local",
+      local: {
+        storagePath: "./public/images",
+        baseUrl: "/images",
+      },
+    },
     lists,
     session,
   })

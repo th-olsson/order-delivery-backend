@@ -500,7 +500,6 @@ input ProductRelateToManyForCreateInput {
 type UnavailableDate {
   id: ID!
   date: DateTime
-  message: String
 }
 
 input UnavailableDateWhereUniqueInput {
@@ -513,18 +512,15 @@ input UnavailableDateWhereInput {
   NOT: [UnavailableDateWhereInput!]
   id: IDFilter
   date: DateTimeNullableFilter
-  message: StringFilter
 }
 
 input UnavailableDateOrderByInput {
   id: OrderDirection
   date: OrderDirection
-  message: OrderDirection
 }
 
 input UnavailableDateUpdateInput {
   date: DateTime
-  message: String
 }
 
 input UnavailableDateUpdateArgs {
@@ -534,52 +530,6 @@ input UnavailableDateUpdateArgs {
 
 input UnavailableDateCreateInput {
   date: DateTime
-  message: String
-}
-
-type OrderStop {
-  id: ID!
-  messageToCustomer: String
-  stopUntil: DateTime
-  updatedAt: DateTime
-}
-
-input OrderStopWhereUniqueInput {
-  id: ID
-}
-
-input OrderStopWhereInput {
-  AND: [OrderStopWhereInput!]
-  OR: [OrderStopWhereInput!]
-  NOT: [OrderStopWhereInput!]
-  id: IDFilter
-  messageToCustomer: StringFilter
-  stopUntil: DateTimeNullableFilter
-  updatedAt: DateTimeNullableFilter
-}
-
-input OrderStopOrderByInput {
-  id: OrderDirection
-  messageToCustomer: OrderDirection
-  stopUntil: OrderDirection
-  updatedAt: OrderDirection
-}
-
-input OrderStopUpdateInput {
-  messageToCustomer: String
-  stopUntil: DateTime
-  updatedAt: DateTime
-}
-
-input OrderStopUpdateArgs {
-  where: OrderStopWhereUniqueInput!
-  data: OrderStopUpdateInput!
-}
-
-input OrderStopCreateInput {
-  messageToCustomer: String
-  stopUntil: DateTime
-  updatedAt: DateTime
 }
 
 """
@@ -642,15 +592,6 @@ type Mutation {
   deleteUnavailableDates(
     where: [UnavailableDateWhereUniqueInput!]!
   ): [UnavailableDate]
-  createOrderStop(data: OrderStopCreateInput!): OrderStop
-  createOrderStops(data: [OrderStopCreateInput!]!): [OrderStop]
-  updateOrderStop(
-    where: OrderStopWhereUniqueInput!
-    data: OrderStopUpdateInput!
-  ): OrderStop
-  updateOrderStops(data: [OrderStopUpdateArgs!]!): [OrderStop]
-  deleteOrderStop(where: OrderStopWhereUniqueInput!): OrderStop
-  deleteOrderStops(where: [OrderStopWhereUniqueInput!]!): [OrderStop]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -729,14 +670,6 @@ type Query {
   ): [UnavailableDate!]
   unavailableDate(where: UnavailableDateWhereUniqueInput!): UnavailableDate
   unavailableDatesCount(where: UnavailableDateWhereInput! = {}): Int
-  orderStops(
-    where: OrderStopWhereInput! = {}
-    orderBy: [OrderStopOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [OrderStop!]
-  orderStop(where: OrderStopWhereUniqueInput!): OrderStop
-  orderStopsCount(where: OrderStopWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

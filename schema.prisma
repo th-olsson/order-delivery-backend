@@ -68,14 +68,6 @@ model Category {
 }
 
 model UnavailableDate {
-  id      String    @id @default(cuid())
-  date    DateTime?
-  message String    @default("")
-}
-
-model OrderStop {
-  id                String    @id @default(cuid())
-  messageToCustomer String    @default("")
-  stopUntil         DateTime?
-  updatedAt         DateTime? @updatedAt
+  id   String    @id @default(cuid())
+  date DateTime?
 }

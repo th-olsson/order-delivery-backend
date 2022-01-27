@@ -123,7 +123,6 @@ export const lists: Lists = {
       name: text({ validation: { isRequired: true } }),
       products: relationship({ ref: "Product.category", many: true }),
       image: image(),
-      // onMenu: checkbox(),
     },
     ui: {
       listView: {
@@ -132,25 +131,10 @@ export const lists: Lists = {
     },
   }),
 
+  // TODO: Solution for store owner to not allow orders certain dates
   UnavailableDate: list({
     fields: {
       date: timestamp(),
-      message: text(),
-    },
-  }),
-
-  OrderStop: list({
-    fields: {
-      messageToCustomer: text(),
-      stopUntil: timestamp(),
-      updatedAt: timestamp({
-        db: { updatedAt: true },
-      }),
-    },
-    ui: {
-      listView: {
-        initialColumns: ["messageToCustomer", "stopUntil", "updatedAt"],
-      },
     },
   }),
 };

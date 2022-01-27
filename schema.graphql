@@ -310,6 +310,278 @@ input TagCreateInput {
   posts: PostRelateToManyForCreateInput
 }
 
+type Product {
+  id: ID!
+  name: String
+  price: Int
+  description: String
+  image: ImageFieldOutput
+  category: Category
+}
+
+interface ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
+}
+
+input ProductWhereUniqueInput {
+  id: ID
+}
+
+input ProductWhereInput {
+  AND: [ProductWhereInput!]
+  OR: [ProductWhereInput!]
+  NOT: [ProductWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  price: IntFilter
+  description: StringFilter
+  category: CategoryWhereInput
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntFilter
+}
+
+input ProductOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  price: OrderDirection
+  description: OrderDirection
+}
+
+input ProductUpdateInput {
+  name: String
+  price: Int
+  description: String
+  image: ImageFieldInput
+  category: CategoryRelateToOneForUpdateInput
+}
+
+input ImageFieldInput {
+  upload: Upload
+  ref: String
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+input CategoryRelateToOneForUpdateInput {
+  create: CategoryCreateInput
+  connect: CategoryWhereUniqueInput
+  disconnect: Boolean
+}
+
+input ProductUpdateArgs {
+  where: ProductWhereUniqueInput!
+  data: ProductUpdateInput!
+}
+
+input ProductCreateInput {
+  name: String
+  price: Int
+  description: String
+  image: ImageFieldInput
+  category: CategoryRelateToOneForCreateInput
+}
+
+input CategoryRelateToOneForCreateInput {
+  create: CategoryCreateInput
+  connect: CategoryWhereUniqueInput
+}
+
+type Category {
+  id: ID!
+  name: String
+  products(
+    where: ProductWhereInput! = {}
+    orderBy: [ProductOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Product!]
+  productsCount(where: ProductWhereInput! = {}): Int
+  image: ImageFieldOutput
+}
+
+input CategoryWhereUniqueInput {
+  id: ID
+}
+
+type LocalImageFieldOutput implements ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  url: String!
+}
+
+type CloudImageFieldOutput implements ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  url: String!
+}
+
+input CategoryWhereInput {
+  AND: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  NOT: [CategoryWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  products: ProductManyRelationFilter
+}
+
+input ProductManyRelationFilter {
+  every: ProductWhereInput
+  some: ProductWhereInput
+  none: ProductWhereInput
+}
+
+input CategoryOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+}
+
+input CategoryUpdateInput {
+  name: String
+  products: ProductRelateToManyForUpdateInput
+  image: ImageFieldInput
+}
+
+input ProductRelateToManyForUpdateInput {
+  disconnect: [ProductWhereUniqueInput!]
+  set: [ProductWhereUniqueInput!]
+  create: [ProductCreateInput!]
+  connect: [ProductWhereUniqueInput!]
+}
+
+input CategoryUpdateArgs {
+  where: CategoryWhereUniqueInput!
+  data: CategoryUpdateInput!
+}
+
+input CategoryCreateInput {
+  name: String
+  products: ProductRelateToManyForCreateInput
+  image: ImageFieldInput
+}
+
+input ProductRelateToManyForCreateInput {
+  create: [ProductCreateInput!]
+  connect: [ProductWhereUniqueInput!]
+}
+
+type UnavailableDate {
+  id: ID!
+  date: DateTime
+  message: String
+}
+
+input UnavailableDateWhereUniqueInput {
+  id: ID
+}
+
+input UnavailableDateWhereInput {
+  AND: [UnavailableDateWhereInput!]
+  OR: [UnavailableDateWhereInput!]
+  NOT: [UnavailableDateWhereInput!]
+  id: IDFilter
+  date: DateTimeNullableFilter
+  message: StringFilter
+}
+
+input UnavailableDateOrderByInput {
+  id: OrderDirection
+  date: OrderDirection
+  message: OrderDirection
+}
+
+input UnavailableDateUpdateInput {
+  date: DateTime
+  message: String
+}
+
+input UnavailableDateUpdateArgs {
+  where: UnavailableDateWhereUniqueInput!
+  data: UnavailableDateUpdateInput!
+}
+
+input UnavailableDateCreateInput {
+  date: DateTime
+  message: String
+}
+
+type OrderStop {
+  id: ID!
+  messageToCustomer: String
+  stopUntil: DateTime
+  updatedAt: DateTime
+}
+
+input OrderStopWhereUniqueInput {
+  id: ID
+}
+
+input OrderStopWhereInput {
+  AND: [OrderStopWhereInput!]
+  OR: [OrderStopWhereInput!]
+  NOT: [OrderStopWhereInput!]
+  id: IDFilter
+  messageToCustomer: StringFilter
+  stopUntil: DateTimeNullableFilter
+  updatedAt: DateTimeNullableFilter
+}
+
+input OrderStopOrderByInput {
+  id: OrderDirection
+  messageToCustomer: OrderDirection
+  stopUntil: OrderDirection
+  updatedAt: OrderDirection
+}
+
+input OrderStopUpdateInput {
+  messageToCustomer: String
+  stopUntil: DateTime
+  updatedAt: DateTime
+}
+
+input OrderStopUpdateArgs {
+  where: OrderStopWhereUniqueInput!
+  data: OrderStopUpdateInput!
+}
+
+input OrderStopCreateInput {
+  messageToCustomer: String
+  stopUntil: DateTime
+  updatedAt: DateTime
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -337,6 +609,48 @@ type Mutation {
   updateTags(data: [TagUpdateArgs!]!): [Tag]
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
+  createProduct(data: ProductCreateInput!): Product
+  createProducts(data: [ProductCreateInput!]!): [Product]
+  updateProduct(
+    where: ProductWhereUniqueInput!
+    data: ProductUpdateInput!
+  ): Product
+  updateProducts(data: [ProductUpdateArgs!]!): [Product]
+  deleteProduct(where: ProductWhereUniqueInput!): Product
+  deleteProducts(where: [ProductWhereUniqueInput!]!): [Product]
+  createCategory(data: CategoryCreateInput!): Category
+  createCategories(data: [CategoryCreateInput!]!): [Category]
+  updateCategory(
+    where: CategoryWhereUniqueInput!
+    data: CategoryUpdateInput!
+  ): Category
+  updateCategories(data: [CategoryUpdateArgs!]!): [Category]
+  deleteCategory(where: CategoryWhereUniqueInput!): Category
+  deleteCategories(where: [CategoryWhereUniqueInput!]!): [Category]
+  createUnavailableDate(data: UnavailableDateCreateInput!): UnavailableDate
+  createUnavailableDates(
+    data: [UnavailableDateCreateInput!]!
+  ): [UnavailableDate]
+  updateUnavailableDate(
+    where: UnavailableDateWhereUniqueInput!
+    data: UnavailableDateUpdateInput!
+  ): UnavailableDate
+  updateUnavailableDates(data: [UnavailableDateUpdateArgs!]!): [UnavailableDate]
+  deleteUnavailableDate(
+    where: UnavailableDateWhereUniqueInput!
+  ): UnavailableDate
+  deleteUnavailableDates(
+    where: [UnavailableDateWhereUniqueInput!]!
+  ): [UnavailableDate]
+  createOrderStop(data: OrderStopCreateInput!): OrderStop
+  createOrderStops(data: [OrderStopCreateInput!]!): [OrderStop]
+  updateOrderStop(
+    where: OrderStopWhereUniqueInput!
+    data: OrderStopUpdateInput!
+  ): OrderStop
+  updateOrderStops(data: [OrderStopUpdateArgs!]!): [OrderStop]
+  deleteOrderStop(where: OrderStopWhereUniqueInput!): OrderStop
+  deleteOrderStops(where: [OrderStopWhereUniqueInput!]!): [OrderStop]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -391,6 +705,38 @@ type Query {
   ): [Tag!]
   tag(where: TagWhereUniqueInput!): Tag
   tagsCount(where: TagWhereInput! = {}): Int
+  products(
+    where: ProductWhereInput! = {}
+    orderBy: [ProductOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Product!]
+  product(where: ProductWhereUniqueInput!): Product
+  productsCount(where: ProductWhereInput! = {}): Int
+  categories(
+    where: CategoryWhereInput! = {}
+    orderBy: [CategoryOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Category!]
+  category(where: CategoryWhereUniqueInput!): Category
+  categoriesCount(where: CategoryWhereInput! = {}): Int
+  unavailableDates(
+    where: UnavailableDateWhereInput! = {}
+    orderBy: [UnavailableDateOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [UnavailableDate!]
+  unavailableDate(where: UnavailableDateWhereUniqueInput!): UnavailableDate
+  unavailableDatesCount(where: UnavailableDateWhereInput! = {}): Int
+  orderStops(
+    where: OrderStopWhereInput! = {}
+    orderBy: [OrderStopOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [OrderStop!]
+  orderStop(where: OrderStopWhereUniqueInput!): OrderStop
+  orderStopsCount(where: OrderStopWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

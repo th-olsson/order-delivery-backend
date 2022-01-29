@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "keystone dev",
-    "start": "keystone start",
+    "dev": "set PORT=4000 && keystone dev",
+    "start": "set PORT=4000 && keystone start",
     "build": "keystone build",
     "postinstall": "keystone postinstall"
   },

@@ -6,18 +6,20 @@ Have PostgreSQL installed and running with a database.
 
 Here are examples how to [install PostgreSQL](https://www.postgresqltutorial.com/install-postgresql/) and [connect to a PostgreSQL database server](https://www.postgresqltutorial.com/connect-to-postgresql-database/).
 
-## Get started
+## Getting started
 Follow these steps to run the application locally
 
 ### Installation
 - Clone repository
 ```
-git clone https://github.com/th-olsson/order-delivery-backend.git
+git clone https://github.com/th-olsson/order-delivery-backend.git server
 ```
 
 - Install dependencies
 ```
 yarn
+#or
+yarn install
 ```
 - Set environment variables, see [./sample.env](./sample.env)
 ### Usage
